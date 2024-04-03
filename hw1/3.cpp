@@ -27,8 +27,8 @@ uint64_t getMax(const std::vector<uint64_t>& v)
     return result;
 }
 
-
-uint64_t getMaxByIter(std::vector<uint64_t>::iterator start, std::vector<uint64_t>::iterator finish)
+//--------------------------------------------------------------------------------------------------------------------------
+void getMaxByIterAndPushToMaxOnSlices(std::vector<uint64_t>::const_iterator start, std::vector<uint64_t>::const_iterator finish)
 {
     auto mx = *start;
     for (auto iter = start; iter < finish; iter++)
@@ -37,28 +37,22 @@ uint64_t getMaxByIter(std::vector<uint64_t>::iterator start, std::vector<uint64_
             mx = *iter;
     }
 
-    return mx;
-}
-
-
-void getMaxByIterAndPushToMaxOnSlices(std::vector<uint64_t>::iterator start, std::vector<uint64_t>::iterator finish)
-{
-    maxOnSlices.push_back(getMaxByIter(start, finish));
+    maxOnSlices.push_back(mx);
 }
 
 
 uint64_t getMaxUsingThreads(int n, const std::vector<uint64_t>& v)
 {
-    int elemsInThread = v.size() % n;
+    int elemsInThread = v.size() / n;
 
     std::vector<std::thread> threads;
 
     for (int i = 0; i < n - 1; i++)
     {
-        threads.push_back(std::thread(getMaxByIter, v.begin() + i * elemsInThread, v.begin() + i * elemsInThread + elemsInThread - 1));
+        threads.emplace_back(getMaxByIterAndPushToMaxOnSlices, v.begin() + i * elemsInThread, v.begin() + i * elemsInThread + elemsInThread - 1);
     }
 
-    threads.push_back(std::thread(getMaxByIterAndPushToMaxOnSlices, v.begin() + (n - 1) * elemsInThread, v.end()));
+    threads.emplace_back(getMaxByIterAndPushToMaxOnSlices, v.begin() + (n - 1) * elemsInThread, v.end());
 
     std::for_each(threads.begin(),threads.end(), std::mem_fn(&std::thread::join));
 
@@ -66,7 +60,7 @@ uint64_t getMaxUsingThreads(int n, const std::vector<uint64_t>& v)
 
     return result;
 }
-
+//--------------------------------------------------------------------------------------------------------------------------
 
 void generatingNumbers(std::vector<uint64_t>& numbers)
 {
@@ -82,9 +76,9 @@ void generatingNumbers(std::vector<uint64_t>& numbers)
 
 int main()
 {
-    //std::vector<uint64_t> numbers(5e8);
-    //generatingNumbers(numbers);
-    std::vector<uint64_t> numbers = {1, 13, 25, 3, 2, 11, 5, 7, 43, 12, 4, 23, 66, 9};
+    std::vector<uint64_t> numbers(5e8);
+    generatingNumbers(numbers);
+    //std::vector<uint64_t> numbers = {1, 13, 25, 3, 2, 11, 5, 7, 43, 12, 4, 23, 66, 9};
 
     cout << "Enter threads amount: " << endl;
     int n;
