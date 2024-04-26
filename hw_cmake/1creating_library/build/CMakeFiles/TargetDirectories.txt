@@ -1,0 +1,3 @@
+/home/demid/Рабочий стол/4term_hw/hw_cmake/1creating_library/build/CMakeFiles/image.dir
+/home/demid/Рабочий стол/4term_hw/hw_cmake/1creating_library/build/CMakeFiles/edit_cache.dir
+/home/demid/Рабочий стол/4term_hw/hw_cmake/1creating_library/build/CMakeFiles/rebuild_cache.dir

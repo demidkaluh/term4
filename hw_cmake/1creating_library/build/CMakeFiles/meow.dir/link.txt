@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmeow.a CMakeFiles/meow.dir/image.cpp.o
+/usr/bin/ranlib libmeow.a

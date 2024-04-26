@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/main.dir/src/main.cpp.o -o main   -L"/home/demid/Рабочий стол/4term_hw/hw_cmake/2linking_library/./lib"  -Wl,-rpath,"/home/demid/Рабочий стол/4term_hw/hw_cmake/2linking_library/./lib" -Wl,-Bstatic -limage -Wl,-Bdynamic 
